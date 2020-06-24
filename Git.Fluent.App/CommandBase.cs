@@ -13,7 +13,7 @@ namespace Git.Fluent.App
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _commandBuilder = new StringBuilder();
+            _commandBuilder = new StringBuilder($"git {name}");
         }
 
         public string Name { get; }

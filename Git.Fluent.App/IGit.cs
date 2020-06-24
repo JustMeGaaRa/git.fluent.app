@@ -2,6 +2,7 @@
 {
     public interface IGit :
         ICanInit<IGit>,
+        ICanClone<IGit>,
         ICanCheckout<IGit>,
         ICanAdd<IGit>,
         ICanStatus<IGit>,

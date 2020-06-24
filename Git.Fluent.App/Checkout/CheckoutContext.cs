@@ -5,5 +5,17 @@
         public CheckoutContext(IGit git) : base("checkout", git)
         {
         }
+
+        public ICheckoutContext<IGit> Branch(string name)
+        {
+            Append(name);
+            return this;
+        }
+
+        public ICheckoutContext<IGit> Force()
+        {
+            Append("--force");
+            return this;
+        }
     }
 }

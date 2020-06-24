@@ -11,5 +11,11 @@
             Append(".");
             return this;
         }
+
+        public IAddContext<IGit> Pathspec(string pathspec)
+        {
+            Append(pathspec);
+            return this;
+        }
     }
 }
