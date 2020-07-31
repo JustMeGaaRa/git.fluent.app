@@ -22,9 +22,9 @@ namespace Git.Fluent.App
 
             await git.Status(context).Branch().Short().Execute();
 
-            await git.Commit(context).Execute();
+            await git.Commit(context).Author("username").Message("initial project files").Execute();
 
-            await git.Push(context).Execute();
+            await git.Push(context).All().Remote("origin").Ref("develop").Force().Execute();
 
             await git.Log(context).Execute();
 
