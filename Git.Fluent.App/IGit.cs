@@ -1,17 +1,20 @@
-﻿namespace Git.Fluent.App
+﻿using Git.Fluent.App.Model;
+
+namespace Git.Fluent.App
 {
     public interface IGit :
-        ICanInit<IGit>,
-        ICanClone<IGit>,
-        ICanCheckout<IGit>,
-        ICanAdd<IGit>,
-        ICanStatus<IGit>,
-        ICanLog<IGit>,
-        ICanFetch<IGit>,
-        ICanPull<IGit>,
-        ICanCommit<IGit>,
-        ICanPush<IGit>
+        ISupportHelpOption<IGit>,
+        ICanInit,
+        ICanClone,
+        ICanCheckout,
+        ICanAdd,
+        ICanStatus,
+        ICanLog,
+        ICanFetch,
+        ICanPull,
+        ICanCommit,
+        ICanPush
     {
-        Context Context { get; }
+        IGit Version();
     }
 }

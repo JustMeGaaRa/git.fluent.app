@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Git.Fluent.App
@@ -7,26 +8,27 @@ namespace Git.Fluent.App
     {
         public static async Task Main(string[] args)
         {
-            Context context = new Context();
-            IGit git = new Git();
+            // NOTE: this can be pre-initialized inside a shell
+            var git = Git.New();
+            var cts = new CancellationTokenSource();
 
-            await git.Clone(context).Origin("git.fluent.app").Branch("master").Execute();
+            await git.Clone("git.fluent.app").Origin("git.fluent.app").Branch("master").Build().ExecuteAsync(cts.Token);
 
-            await git.Checkout(context).Branch("develop").Force().Execute();
+            await git.Checkout().Branch("develop").Force().Build().ExecuteAsync(cts.Token);
 
-            await git.Fetch(context).All().Prune().Force().Execute();
+            await git.Fetch().All().Prune().Force().Build().ExecuteAsync(cts.Token);
 
-            await git.Pull(context).All().Prune().Force().Execute();
+            await git.Pull().All().Prune().Force().Build().ExecuteAsync(cts.Token);
 
-            await git.Add(context).Pathspec("./src/*").Execute();
+            await git.Add("./src/*").Build().ExecuteAsync(cts.Token);
 
-            await git.Status(context).Branch().Short().Execute();
+            await git.Status("./*").Branch().Short().Build().ExecuteAsync(cts.Token);
 
-            await git.Commit(context).Author("username").Message("initial project files").Execute();
+            await git.Commit().Author("username").Message("initial project files").Build().ExecuteAsync(cts.Token);
 
-            await git.Push(context).All().Remote("origin").Ref("develop").Force().Execute();
+            await git.Push().All().Remote("origin").Ref("develop").Force().Build().ExecuteAsync(cts.Token);
 
-            await git.Log(context).Execute();
+            await git.Log().Build().ExecuteAsync(cts.Token);
 
             Console.ReadKey();
         }
